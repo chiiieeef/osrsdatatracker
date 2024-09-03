@@ -81,6 +81,20 @@ const HiscoreComponent = () => {
             });
 
             console.log("Formatted Hiscore Data:", hiscoreData); // Debugging output
+
+            // **Send hiscoreData to the server via POST**
+            const saveResponse = await fetch('/api/hiscore', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(hiscoreData),
+            });
+
+            if (!saveResponse.ok) {
+                throw new Error('Failed to save hiscore data');
+            }
+            
             setData(hiscoreData);
             setError(null);
         } catch (err) {
